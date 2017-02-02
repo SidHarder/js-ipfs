@@ -2,6 +2,7 @@ ansiColor('xterm') {
 	node {
 		def VERSION = "latest"
 		stage("Checkout") {
+			checkout scm
 			VERSION = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 		}
 		stage("Build") {
