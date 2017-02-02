@@ -9,7 +9,7 @@ ansiColor('xterm') {
 			sh "docker build -t quay.io/ipfs/js-ipfs:$VERSION ."
 		}
 		stage("Test") {
-			sh "docker run quay.io/ipfs/js-ipfs:$VERSION"
+			sh "docker run quay.io/ipfs/js-ipfs:$VERSION npm run test:unit:node"
 		}
 	}
 }
