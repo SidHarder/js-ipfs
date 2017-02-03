@@ -23,5 +23,7 @@ COPY ci/entrypoint.sh /entrypoint.sh
 
 COPY . /usr/src/app
 
+RUN chown -R tester /usr/src/app
+
 CMD ["/usr/src/app/src/cli/bin.js"]
 ENTRYPOINT ["/entrypoint.sh"]
