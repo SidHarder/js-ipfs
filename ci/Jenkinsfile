@@ -5,11 +5,21 @@ ansiColor('xterm') {
 			checkout scm
 			VERSION = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
 		}
+		
 		stage("Build") {
-			sh "docker build -t quay.io/ipfs/js-ipfs:$VERSION ."
+			sh "docker build -f ci/Dockerfile -t quay.io/ipfs/js-ipfs:$VERSION ."
 		}
-		stage("Test") {
-			sh "docker run quay.io/ipfs/js-ipfs:$VERSION npm run test:unit:node"
+		stage("Tests") {
+			parallel nodejs: {
+				node {
+					sh "docker run quay.io/ipfs/js-ipfs:$VERSION npm run test:unit:node"
+				}
+			},
+			browser: {
+				node {
+					sh "docker run --privileged quay.io/ipfs/js-ipfs:$VERSION npm run test:unit:browser"
+				}
+			}
 		}
 	}
 }
