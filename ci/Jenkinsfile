@@ -12,12 +12,12 @@ ansiColor('xterm') {
 		stage("Tests") {
 			parallel nodejs: {
 				node {
-					sh "docker run quay.io/ipfs/js-ipfs:$VERSION npm run test:unit:node"
+					sh "docker run quay.io/ipfs/js-ipfs:$VERSION npm run test:node"
 				}
 			},
 			browser: {
 				node {
-					sh "docker run --privileged quay.io/ipfs/js-ipfs:$VERSION npm run test:unit:browser"
+					sh "docker run --privileged quay.io/ipfs/js-ipfs:$VERSION npm run test:browser"
 				}
 			}
 		}
