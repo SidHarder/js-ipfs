@@ -16,7 +16,7 @@ RUN adduser --disabled-password --gecos "" tester
 
 COPY package.json /usr/src/app/package.json
 
-RUN npm install --verbose
+RUN npm install
 
 COPY ci/xvfb.sh /etc/init.d/xvfb
 COPY ci/entrypoint.sh /entrypoint.sh
